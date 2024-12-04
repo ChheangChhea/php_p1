@@ -1,0 +1,22 @@
+<?php
+date_default_timezone_set("Asia/Phnom_Penh");
+$cn= new mysqli("localhost","root","","php25");
+    $cn->set_charset("utf8");
+    $name = trim($_POST['txt-name']);
+    $name = $cn->real_escape_string($name);
+    $price = $_POST['txt-price'];
+    $date = date("Y-m-d h:i:s A");
+    //ckeck daulicat name
+    $sql = "SELECT name FROM tbl_test WHERE name='$name'";
+        $rs=$cn->query($sql);
+        if($rs->num_rows > 0){
+            $msg['dpl']=true;
+        }else{
+            $sql = "INSERT INTO tbl_test 
+            values(null,'$name',$price,'$date')";
+            $cn->query($sql);
+             $msg['id']=$cn->insert_id;
+             $msg['dpl']=false;
+        }
+     echo json_encode($msg);
+?>
