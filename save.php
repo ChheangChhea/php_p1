@@ -6,6 +6,7 @@ $cn= new mysqli("localhost","root","","php25");
     $name = $cn->real_escape_string($name);
     $price = $_POST['txt-price'];
     $date = date("Y-m-d h:i:s A");
+    $img =$_POST['txt-img'];
     //ckeck daulicat name
     $sql = "SELECT name FROM tbl_test WHERE name='$name'";
         $rs=$cn->query($sql);
@@ -13,7 +14,7 @@ $cn= new mysqli("localhost","root","","php25");
             $msg['dpl']=true;
         }else{
             $sql = "INSERT INTO tbl_test 
-            values(null,'$name',$price,'$date')";
+            values(null,'$name',$price,'$date','$img')";
             $cn->query($sql);
              $msg['id']=$cn->insert_id;
              $msg['dpl']=false;
