@@ -16,7 +16,7 @@ if($rs->num_rows > 0){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post</title>
-    
+
     <link rel="stylesheet" href="style/style.css">
     <script src="style/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="style/bootstrap.min.css">
@@ -32,9 +32,8 @@ if($rs->num_rows > 0){
    <label for="">Price</label>
    <input type="text" name="txt-price" id="txt-price"class="frm-control">
    <label for="">Photo</label>
-        
    <div class="img-box">
-       <input type="file" name="txt-file" id="txt-file" 
+       <input type="file" name="txt-file" id="txt-file"
         class="txt-file">
    </div>
     <div class='btnSave'>
@@ -42,7 +41,7 @@ if($rs->num_rows > 0){
       <!-- <img src="img/k8.jpg" alt=""> -->
     </div>
     </form>
-   
+
 </div>
 <h1></h1>
 <table class="table" id="tblData" >
@@ -52,7 +51,6 @@ if($rs->num_rows > 0){
         <th width="100">Price</th>
         </tr>
         <?php
-        
         $sql = "SELECT *FROM tbl_test order by id desc";
         $rs = $cn->query($sql);
         while($row = $rs->fetch_array() ){
@@ -65,10 +63,10 @@ if($rs->num_rows > 0){
             <?php
         }
         // if($rs->num_rows >0){
-            
+
         // }
         ?>
-    
+
 </table>
 </body>
 <script>
@@ -89,11 +87,11 @@ if($rs->num_rows > 0){
             processData:false,
             dataType:"json",
             beforeSend:function(){
-                
+
             },
-            success:function(data){   
+            success:function(data){
             imgBox.css({"background-image":"url(img/"+data['imgName']+")"});
-           }				 
+           }
         });
         });
         $('.btnSave').click(function(){
@@ -106,23 +104,23 @@ if($rs->num_rows > 0){
             name.focus();
             return;
         }else if(price.val()==''){
-            alert("please input price");           
+            alert("please input price");
             return;
         }
         var frm = eThis.closest('form.upl');
        var frm_data = new FormData(frm[0]);
 $.ajax({
-	url:'save.php',
-	type:'POST',
-	data:frm_data,
-	contentType:false,
-	cache:false,
-	processData:false,
-	dataType:"json",
-	beforeSend:function(){
+  url:'save.php',
+  type:'POST',
+  data:frm_data,
+  contentType:false,
+  cache:false,
+  processData:false,
+  dataType:"json",
+  beforeSend:function(){
            eThis.html("waiting...")
-	},
-	success:function(data){   
+  },
+  success:function(data){
     if(data['dpl'] == true){
         alert("Duplicate name");
     }else{
@@ -135,15 +133,14 @@ $.ajax({
            `;
            tbl.find('tr:eq(0)').after(tr);
         //    tbl.prepend(tr);
-           
            name.val("");
            price.val("");
            name.focus();
            id.val(data['id'] + 1);
     }
     eThis.html("Save");
-	}				
-   }); 
+  }
+   });
         });
     });
 </script>
