@@ -36,10 +36,12 @@ if($rs->num_rows > 0){
    <div class="img-box">
        <input type="file" name="txt-file" id="txt-file" 
         class="txt-file">
+        <input type="text" name="txt-img" id="txt-img" 
+        class="txt-img">       
    </div>
+
     <div class='btnSave'>
       Save
-      <!-- <img src="img/k8.jpg" alt=""> -->
     </div>
     </form>
    
@@ -50,6 +52,8 @@ if($rs->num_rows > 0){
         <th width="100">ID</th>
         <th>Name</th>
         <th width="100">Price</th>
+        <th width="100">photo</th>
+        <th width="100">Action</th>
         </tr>
         <?php
         
@@ -61,6 +65,10 @@ if($rs->num_rows > 0){
             <td><?php echo $row[0]; ?> </td>
             <td><?php echo $row[1]; ?> </td>
             <td><?php echo $row[2]; ?> </td>
+            <td> <img src="img/<?php echo $row[4]; ?>" alt=""></td>
+            <!-- <i class="fas fa-edit btnEdit"></i> -->
+           <td> <input type="button" value="Edit" class="btnEdit"></td>
+           
             </tr>
             <?php
         }
@@ -74,10 +82,12 @@ if($rs->num_rows > 0){
 <script>
     $(document).ready(function(){
         var tbl= $('#tblData');
+        var btnEdit ='<input type="button" value="Edit" class="btnEdit">';
+        var loading= "<div class='img-loading'></div>";
         // Upload img
         $('.txt-file').change(function(){
             var eThis = $(this);
-            var imgBox =$('.img-box');
+            var imgBox = $('.img-box');
             var frm = eThis.closest('form.upl');
             var frm_data = new FormData(frm[0]);
         $.ajax({
@@ -89,11 +99,13 @@ if($rs->num_rows > 0){
             processData:false,
             dataType:"json",
             beforeSend:function(){
-                
+            imgBox.append(loading);
             },
             success:function(data){   
             imgBox.css({"background-image":"url(img/"+data['imgName']+")"});
-           }				 
+            imgBox.find('.img-loading').remove();
+            imgBox.find('.txt-img').val(data['imgName']);
+        }				 
         });
         });
         $('.btnSave').click(function(){
@@ -101,6 +113,9 @@ if($rs->num_rows > 0){
         var id= $('#txt-id');
         var name= $('#txt-name');
         var price= $('#txt-price');
+        var imgName= $('#txt-img');
+        var imgBox = $('.img-box');
+        var btnEdit =$('.btnEdit')
         if(name.val()==''){
             alert("please input name");
             name.focus();
@@ -131,6 +146,9 @@ $.ajax({
                 <td>${id.val()}</td>
                 <td>${name.val()}</td>
                 <td>${price.val()}</td>
+                <td> <img src='img/${imgName.val()}'</td>
+                <td>${btnEdit.val()}</td>
+                
            </tr>
            `;
            tbl.find('tr:eq(0)').after(tr);
@@ -138,7 +156,9 @@ $.ajax({
            
            name.val("");
            price.val("");
-           name.focus();
+imgBox.css({"background-image":"url(style/1.png)"});
+         imgBox.find("input").val('');
+name.focus();
            id.val(data['id'] + 1);
     }
     eThis.html("Save");
