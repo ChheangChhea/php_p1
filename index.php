@@ -16,6 +16,7 @@ if($rs->num_rows > 0){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     
     <link rel="stylesheet" href="style/style.css">
     <script src="style/jquery-3.2.1.min.js"></script>
@@ -65,9 +66,9 @@ if($rs->num_rows > 0){
             <td><?php echo $row[0]; ?> </td>
             <td><?php echo $row[1]; ?> </td>
             <td><?php echo $row[2]; ?> </td>
-            <td> <img src="img/<?php echo $row[4]; ?>" alt=""></td>
-            <!-- <i class="fas fa-edit btnEdit"></i> -->
-           <td> <input type="button" value="Edit" class="btnEdit"></td>
+            <td> <img src="img/<?php echo $row[4]; ?>" alt="<?php echo $row[4]; ?>"></td>
+            <td> <i class="fas fa-edit btnEdit"></i> </td>
+           <!-- <td> <input type="button" value="Edit" class="btnEdit"></td> -->
            
             </tr>
             <?php
@@ -82,7 +83,7 @@ if($rs->num_rows > 0){
 <script>
     $(document).ready(function(){
         var tbl= $('#tblData');
-        var btnEdit ='<input type="button" value="Edit" class="btnEdit">';
+        var btnEdit ='<i class="fas fa-edit btnEdit"></i>';
         var loading= "<div class='img-loading'></div>";
         // Upload img
         $('.txt-file').change(function(){
@@ -115,7 +116,6 @@ if($rs->num_rows > 0){
         var price= $('#txt-price');
         var imgName= $('#txt-img');
         var imgBox = $('.img-box');
-        var btnEdit =$('.btnEdit')
         if(name.val()==''){
             alert("please input name");
             name.focus();
@@ -147,7 +147,7 @@ $.ajax({
                 <td>${name.val()}</td>
                 <td>${price.val()}</td>
                 <td> <img src='img/${imgName.val()}'</td>
-                <td>${btnEdit.val()}</td>
+                <td>${btnEdit}</td>
                 
            </tr>
            `;
@@ -165,6 +165,21 @@ name.focus();
 	}				
    }); 
         });
+        //get edit data
+        tbl.on('click',"tr td .btnEdit",function(){
+          var Parent =$(this).parents('tr');
+          var id = Parent.find('td:eq(0)').text();
+          var name = Parent.find('td:eq(1)').text();
+          var price = Parent.find('td:eq(2)').text();
+          var img = Parent.find('td:eq(3) img').attr("alt");
+        
+          $('#txt-id').val(id);
+          $('#txt-name').val(name);
+          $('#txt-price').val(price);
+          $('#txt-img').val(img);
+          $('.img-box').css({"background-image":"url(img/"+img+")"});
+        });
+
     });
 </script>
 </html>
