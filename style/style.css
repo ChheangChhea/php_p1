@@ -25,6 +25,7 @@ label{
     border: 1px solid deepskyblue;
     outline: none;
     margin-top: 10px;
+
 }
 .btnSave{
     float: right;
@@ -38,12 +39,12 @@ label{
     width: 100px;
     height: 100px;
     float: left;
-    border: 1px solid red;
-    background-color: pink;
+    border: 1px solid rgb(241, 232, 232);
+
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("1.png");
+    background-image: url("photo.png");
     position: relative;
 }
 .img-box input{
@@ -54,13 +55,13 @@ label{
 }
 .img-loading{
 position: absolute;
-width: 100%;
-height: 100%;
+width: 100px;
+height: 100px;
 top: 50%;
 left: 50%;
 transform: translate(-50%,-50%);
-background-color: aqua;
-background-image: url('2.jpg');
+
+background-image: url('gift.gif');
 background-position: center;
 background-repeat: no-repeat;
 background-size: 100px 100px;
@@ -70,4 +71,8 @@ table tr td img{
     width: 50px;
     height: 50px;
     object-fit: cover;
+}
+.btnEdit{
+    cursor: pointer;
+    opacity: 0.7s;
 }
