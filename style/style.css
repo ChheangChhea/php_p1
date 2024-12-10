@@ -39,7 +39,7 @@ label{
     width: 100px;
     height: 100px;
     float: left;
-    border: 1px solid red;
+    border: 1px solid rgb(241, 232, 232);
 
     background-position: center;
     background-size: cover;
