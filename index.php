@@ -17,7 +17,7 @@ if($rs->num_rows > 0){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-    
+
     <link rel="stylesheet" href="style/style.css">
     <script src="style/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="style/bootstrap.min.css">
@@ -33,19 +33,19 @@ if($rs->num_rows > 0){
    <label for="">Price</label>
    <input type="text" name="txt-price" id="txt-price"class="frm-control">
    <label for="">Photo</label>
-        
+
    <div class="img-box">
-       <input type="file" name="txt-file" id="txt-file" 
+       <input type="file" name="txt-file" id="txt-file"
         class="txt-file">
-        <input type="text" name="txt-img" id="txt-img" 
-        class="txt-img">       
+        <input type="text" name="txt-img" id="txt-img"
+        class="txt-img">
    </div>
 
     <div class='btnSave'>
       Save
     </div>
     </form>
-   
+
 </div>
 <h1></h1>
 <table class="table" id="tblData" >
@@ -57,7 +57,7 @@ if($rs->num_rows > 0){
         <th width="100">Action</th>
         </tr>
         <?php
-        
+
         $sql = "SELECT *FROM tbl_test order by id desc";
         $rs = $cn->query($sql);
         while($row = $rs->fetch_array() ){
@@ -69,15 +69,15 @@ if($rs->num_rows > 0){
             <td> <img src="img/<?php echo $row[4]; ?>" alt="<?php echo $row[4]; ?>"></td>
             <td> <i class="fas fa-edit btnEdit"></i> </td>
            <!-- <td> <input type="button" value="Edit" class="btnEdit"></td> -->
-           
+
             </tr>
             <?php
         }
         // if($rs->num_rows >0){
-            
+
         // }
         ?>
-    
+
 </table>
 </body>
 <script>
@@ -102,11 +102,11 @@ if($rs->num_rows > 0){
             beforeSend:function(){
             imgBox.append(loading);
             },
-            success:function(data){   
+            success:function(data){
             imgBox.css({"background-image":"url(img/"+data['imgName']+")"});
             imgBox.find('.img-loading').remove();
             imgBox.find('.txt-img').val(data['imgName']);
-        }				 
+        }
         });
         });
         $('.btnSave').click(function(){
@@ -121,7 +121,7 @@ if($rs->num_rows > 0){
             name.focus();
             return;
         }else if(price.val()==''){
-            alert("please input price");           
+            alert("please input price");
             return;
         }
         var frm = eThis.closest('form.upl');
@@ -137,7 +137,7 @@ $.ajax({
 	beforeSend:function(){
            eThis.html("waiting...")
 	},
-	success:function(data){   
+	success:function(data){
     if(data['dpl'] == true){
         alert("Duplicate name");
     }else{
@@ -148,22 +148,20 @@ $.ajax({
                 <td>${price.val()}</td>
                 <td> <img src='img/${imgName.val()}'</td>
                 <td>${btnEdit}</td>
-                
            </tr>
            `;
            tbl.find('tr:eq(0)').after(tr);
         //    tbl.prepend(tr);
-           
            name.val("");
            price.val("");
-imgBox.css({"background-image":"url(style/1.png)"});
+imgBox.css({"background-image":"url(style/photo.png)"});
          imgBox.find("input").val('');
 name.focus();
            id.val(data['id'] + 1);
     }
     eThis.html("Save");
-	}				
-   }); 
+	}
+   });
         });
         //get edit data
         tbl.on('click',"tr td .btnEdit",function(){
@@ -172,7 +170,6 @@ name.focus();
           var name = Parent.find('td:eq(1)').text();
           var price = Parent.find('td:eq(2)').text();
           var img = Parent.find('td:eq(3) img').attr("alt");
-        
           $('#txt-id').val(id);
           $('#txt-name').val(name);
           $('#txt-price').val(price);

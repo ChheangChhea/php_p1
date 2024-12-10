@@ -25,7 +25,7 @@ label{
     border: 1px solid deepskyblue;
     outline: none;
     margin-top: 10px;
-   
+
 }
 .btnSave{
     float: right;
@@ -40,11 +40,11 @@ label{
     height: 100px;
     float: left;
     border: 1px solid red;
-   
+
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("1.png");
+    background-image: url("photo.png");
     position: relative;
 }
 .img-box input{
@@ -61,7 +61,7 @@ top: 50%;
 left: 50%;
 transform: translate(-50%,-50%);
 
-background-image: url('2.jpg');
+background-image: url('gift.gif');
 background-position: center;
 background-repeat: no-repeat;
 background-size: 100px 100px;
