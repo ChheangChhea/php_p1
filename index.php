@@ -25,6 +25,7 @@ if($rs->num_rows > 0){
 <body>
     <form class="upl">
     <div class="frm">
+        <input type="text" name="txt-edit-id" id="txt-edit-id" class="frm-control" value='0'>
    <label for="">ID</label>
    <input type="text" name="txt-id" id="txt-id"
     value="<?php echo $id; ?>"class="frm-control">
@@ -138,7 +139,11 @@ $.ajax({
 	success:function(data){
     if(data['dpl'] == true){
         alert("Duplicate name");
-    }else{
+    }else if(data['edit']== truse){
+        alert("Data is update ")
+    }
+    
+    {
         var tr = `
            <tr>
                 <td>${id.val()}</td>
@@ -173,6 +178,7 @@ name.focus();
           $('#txt-price').val(price);
           $('#txt-img').val(img);
           $('.img-box').css({"background-image":"url(img/"+img+")"});
+          $("#txt-edit-id").val(id);
         });
 
     });
