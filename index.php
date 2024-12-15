@@ -86,6 +86,7 @@ if($rs->num_rows > 0){
         var tbl= $('#tblData');
         var btnEdit ='<i class="fas fa-edit btnEdit"></i>';
         var loading= "<div class='img-loading'></div>";
+        var ind=0;
         // Upload img
         $('.txt-file').change(function(){
             var eThis = $(this);
@@ -141,17 +142,18 @@ $.ajax({
 	success:function(data){
     if(data['dpl'] == true){
         alert("Duplicate name");
-    }else if(data['edit']== truse){
-        alert("Data is update ")
-    }
-    
-    {
+    }else if(data['edit']== true){
+       tbl.find('tr:eq('+ind+') td:eq(1)').text(name.val());
+       tbl.find('tr:eq('+ind+') td:eq(2)').text(price.val());
+       tbl.find('tr:eq('+ind+') td:eq(3) img').attr("src","img/"+imgName.val()+"");
+       tbl.find('tr:eq('+ind+') td:eq(3) img').attr("alt",""+imgName.val()+"");
+    }else{
         var tr = `
            <tr>
                 <td>${id.val()}</td>
                 <td>${name.val()}</td>
                 <td>${price.val()}</td>
-                <td> <img src='img/${imgName.val()}'</td>
+                <td> <img src='img/${imgName.val()}'alt="${imgName.val()}"</td>
                 <td>${btnEdit}</td>
            </tr>
            `;
@@ -175,6 +177,7 @@ name.focus();
           var name = Parent.find('td:eq(1)').text();
           var price = Parent.find('td:eq(2)').text();
           var img = Parent.find('td:eq(3) img').attr("alt");
+          ind=Parent.index();
           $('#txt-id').val(id);
           $('#txt-name').val(name);
           $('#txt-price').val(price);

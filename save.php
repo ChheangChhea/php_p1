@@ -9,7 +9,7 @@ $cn= new mysqli("localhost","root","","php25");
     $date = date("Y-m-d h:i:s A");
     $img =$_POST['txt-img'];
     //ckeck daulicat name
-    $sql = "SELECT name FROM tbl_test WHERE name='$name'";
+    $sql = "SELECT name FROM tbl_test WHERE name='$name'&& id !=$editId";
         $rs=$cn->query($sql);
         if($rs->num_rows > 0){
             $msg['dpl']=true;
