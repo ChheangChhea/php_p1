@@ -82,18 +82,12 @@ if ($rs->num_rows > 0) {
     </table>
 </body>
 <script>
-<<<<<<< HEAD
+
     $(document).ready(function(){
         var tbl= $('#tblData');
         var btnEdit ='<i class="fas fa-edit btnEdit"></i>';
         var loading= "<div class='img-loading'></div>";
         var ind=0;
-=======
-    $(document).ready(function() {
-        var tbl = $('#tblData');
-        var btnEdit = '<i class="fas fa-edit btnEdit"></i>';
-        var loading = "<div class='img-loading'></div>";
->>>>>>> 1414907625e3aff7c96472813bb8d360374c17fd
         // Upload img
         $('.txt-file').change(function() {
             var eThis = $(this);
@@ -120,8 +114,8 @@ if ($rs->num_rows > 0) {
                 }
             });
         });
-<<<<<<< HEAD
-        });
+
+        // });
         $('.btnSave').click(function(){
         var eThis = $(this);
         var id= $('#txt-id');
@@ -160,45 +154,7 @@ $.ajax({
        tbl.find('tr:eq('+ind+') td:eq(3) img').attr("alt",""+imgName.val()+"");
     }else{
         var tr = `
-=======
-        $('.btnSave').click(function() {
-            var eThis = $(this);
-            var id = $('#txt-id');
-            var name = $('#txt-name');
-            var price = $('#txt-price');
-            var imgName = $('#txt-img');
-            var imgBox = $('.img-box');
-            if (name.val() == '') {
-                alert("please input name");
-                name.focus();
-                return;
-            } else if (price.val() == '') {
-                alert("please input price");
-                return;
-            }
-            var frm = eThis.closest('form.upl');
-            var frm_data = new FormData(frm[0]);
-            $.ajax({
-                url: 'save.php',
-                type: 'POST',
-                data: frm_data,
-                contentType: false,
-                cache: false,
-                processData: false,
-                dataType: "json",
-                beforeSend: function() {
-                    eThis.html("waiting...")
-                },
-                success: function(data) {
-                    if (data['dpl'] == true) {
-                        alert("Duplicate name");
-                    } else if (data['edit'] == truse) {
-                        alert("Data is update ")
-                    }
 
-                    {
-                        var tr = `
->>>>>>> 1414907625e3aff7c96472813bb8d360374c17fd
            <tr>
                 <td>${id.val()}</td>
                 <td>${name.val()}</td>
@@ -223,7 +179,7 @@ $.ajax({
             });
         });
         //get edit data
-<<<<<<< HEAD
+
         tbl.on('click',"tr td .btnEdit",function(){
           var Parent =$(this).parents('tr');
           var id = Parent.find('td:eq(0)').text();
@@ -237,22 +193,7 @@ $.ajax({
           $('#txt-img').val(img);
           $('.img-box').css({"background-image":"url(img/"+img+")"});
           $("#txt-edit-id").val(id);
-=======
-        tbl.on('click', "tr td .btnEdit", function() {
-            var Parent = $(this).parents('tr');
-            var id = Parent.find('td:eq(0)').text();
-            var name = Parent.find('td:eq(1)').text();
-            var price = Parent.find('td:eq(2)').text();
-            var img = Parent.find('td:eq(3) img').attr("alt");
-            $('#txt-id').val(id);
-            $('#txt-name').val(name);
-            $('#txt-price').val(price);
-            $('#txt-img').val(img);
-            $('.img-box').css({
-                "background-image": "url(img/" + img + ")"
-            });
-            $("#txt-edit-id").val(id);
->>>>>>> 1414907625e3aff7c96472813bb8d360374c17fd
+
         });
 
     });
