@@ -114,7 +114,6 @@ if ($rs->num_rows > 0) {
                 }
             });
         });
-        // });
         $('.btnSave').click(function(){
         var eThis = $(this);
         var id= $('#txt-id');
