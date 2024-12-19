@@ -82,10 +82,12 @@ if ($rs->num_rows > 0) {
     </table>
 </body>
 <script>
-    $(document).ready(function() {
-        var tbl = $('#tblData');
-        var btnEdit = '<i class="fas fa-edit btnEdit"></i>';
-        var loading = "<div class='img-loading'></div>";
+
+    $(document).ready(function(){
+        var tbl= $('#tblData');
+        var btnEdit ='<i class="fas fa-edit btnEdit"></i>';
+        var loading= "<div class='img-loading'></div>";
+        var ind=0;
         // Upload img
         $('.txt-file').change(function() {
             var eThis = $(this);
@@ -112,48 +114,51 @@ if ($rs->num_rows > 0) {
                 }
             });
         });
-        $('.btnSave').click(function() {
-            var eThis = $(this);
-            var id = $('#txt-id');
-            var name = $('#txt-name');
-            var price = $('#txt-price');
-            var imgName = $('#txt-img');
-            var imgBox = $('.img-box');
-            if (name.val() == '') {
-                alert("please input name");
-                name.focus();
-                return;
-            } else if (price.val() == '') {
-                alert("please input price");
-                return;
-            }
-            var frm = eThis.closest('form.upl');
-            var frm_data = new FormData(frm[0]);
-            $.ajax({
-                url: 'save.php',
-                type: 'POST',
-                data: frm_data,
-                contentType: false,
-                cache: false,
-                processData: false,
-                dataType: "json",
-                beforeSend: function() {
-                    eThis.html("waiting...")
-                },
-                success: function(data) {
-                    if (data['dpl'] == true) {
-                        alert("Duplicate name");
-                    } else if (data['edit'] == truse) {
-                        alert("Data is update ")
-                    }
+        // });
+        $('.btnSave').click(function(){
+        var eThis = $(this);
+        var id= $('#txt-id');
+        var name= $('#txt-name');
+        var price= $('#txt-price');
+        var imgName= $('#txt-img');
+        var imgBox = $('.img-box');
+        if(name.val()==''){
+            alert("please input name");
+            name.focus();
+            return;
+        }else if(price.val()==''){
+            alert("please input price");
+            return;
+        }
+        var frm = eThis.closest('form.upl');
+       var frm_data = new FormData(frm[0]);
+$.ajax({
+	url:'save.php',
+	type:'POST',
+	data:frm_data,
+	contentType:false,
+	cache:false,
+	processData:false,
+	dataType:"json",
+	beforeSend:function(){
+           eThis.html("waiting...")
+	},
+	success:function(data){
+    if(data['dpl'] == true){
+        alert("Duplicate name");
+    }else if(data['edit']== true){
+       tbl.find('tr:eq('+ind+') td:eq(1)').text(name.val());
+       tbl.find('tr:eq('+ind+') td:eq(2)').text(price.val());
+       tbl.find('tr:eq('+ind+') td:eq(3) img').attr("src","img/"+imgName.val()+"");
+       tbl.find('tr:eq('+ind+') td:eq(3) img').attr("alt",""+imgName.val()+"");
+    }else{
+        var tr = `
 
-                    {
-                        var tr = `
            <tr>
                 <td>${id.val()}</td>
                 <td>${name.val()}</td>
                 <td>${price.val()}</td>
-                <td> <img src='img/${imgName.val()}'</td>
+                <td> <img src='img/${imgName.val()}'alt="${imgName.val()}"</td>
                 <td>${btnEdit}</td>
            </tr>
            `;
@@ -173,20 +178,21 @@ if ($rs->num_rows > 0) {
             });
         });
         //get edit data
-        tbl.on('click', "tr td .btnEdit", function() {
-            var Parent = $(this).parents('tr');
-            var id = Parent.find('td:eq(0)').text();
-            var name = Parent.find('td:eq(1)').text();
-            var price = Parent.find('td:eq(2)').text();
-            var img = Parent.find('td:eq(3) img').attr("alt");
-            $('#txt-id').val(id);
-            $('#txt-name').val(name);
-            $('#txt-price').val(price);
-            $('#txt-img').val(img);
-            $('.img-box').css({
-                "background-image": "url(img/" + img + ")"
-            });
-            $("#txt-edit-id").val(id);
+
+        tbl.on('click',"tr td .btnEdit",function(){
+          var Parent =$(this).parents('tr');
+          var id = Parent.find('td:eq(0)').text();
+          var name = Parent.find('td:eq(1)').text();
+          var price = Parent.find('td:eq(2)').text();
+          var img = Parent.find('td:eq(3) img').attr("alt");
+          ind=Parent.index();
+          $('#txt-id').val(id);
+          $('#txt-name').val(name);
+          $('#txt-price').val(price);
+          $('#txt-img').val(img);
+          $('.img-box').css({"background-image":"url(img/"+img+")"});
+          $("#txt-edit-id").val(id);
+
         });
 
     });
