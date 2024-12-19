@@ -27,9 +27,9 @@ if ($rs->num_rows > 0) {
 <body>
     <form class="upl">
         <div class="frm">
-            <input type="text" name="txt-edit-id" id="txt-edit-id" class="frm-control" value='0'>
+            <input type="hidden" name="txt-edit-id" id="txt-edit-id" class="frm-control" value='0'>
             <label for="">ID</label>
-            <input type="text" name="txt-id" id="txt-id"
+            <input type="text" name="txt-id" id="txt-id" readonly
                 value="<?php echo $id; ?>" class="frm-control">
             <label for="">Name</label>
             <input type="text" name="txt-name" id="txt-name" class="frm-control">
